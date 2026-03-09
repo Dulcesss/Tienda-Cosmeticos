@@ -1,60 +1,27 @@
-# Biblioteca en Solana
+El proyecto consiste en el desarrollo de un programa en Solana utilizando el framework Anchor, cuyo objetivo es simular el funcionamiento básico de una tienda de cosméticos de belleza dentro de la blockchain. Este programa permite administrar productos cosméticos mediante diferentes funciones que permiten crear una tienda, agregar productos, eliminarlos, visualizar los existentes, modificar su disponibilidad y consultar el total de productos registrados.
 
-![banner](./images/banner-biblioteca.jpg)
+El primer paso en el desarrollo fue la creación del programa en Anchor, donde se definió el identificador del programa mediante declare_id. Posteriormente se creó el módulo principal del programa donde se implementaron las funciones que permiten interactuar con la tienda.
 
-CRUD básico de un Solana Program desarrollado con Rust y Anchor desde el Solana Playground. 
+Después se definió la estructura principal llamada Tienda, la cual almacena la información básica del negocio. Esta estructura guarda la clave pública del propietario (owner), el nombre de la tienda y una lista de productos cosméticos almacenados en un vector. Cada producto se representa mediante la estructura Cosmetico, que contiene el nombre del producto, su precio y un indicador booleano que señala si el producto se encuentra disponible o no.
 
-Puedes comenzar dándole Fork a este repositorio (abajo te explicamos como 👇), **hemos preparado un entorno de codespaces listo para que no tengas que instalar nada**, solo déjate llevar por la fluidez de los ejercicios y temas desarrollados especialmente para ti. 
+Posteriormente se implementaron las funciones principales del programa:
 
-Asegúrate de clonar este repositorio a tu cuenta usando el botón **`Fork`**.
+crear_tienda: Permite inicializar una nueva tienda asociada al propietario de la cuenta. Aquí se crea la estructura de la tienda y se inicializa el vector de productos.
 
-![fork](./images/fork.png)
+agregar_producto: Permite añadir un nuevo cosmético a la lista de productos de la tienda.
 
-## Importando el proyecto 
+eliminar_producto: Busca un producto por su nombre y lo elimina del vector si existe.
 
-Ya con el repositorio en tu cuenta lo siguiente que debes hacer copiar el `enlace de tu repositorio`, lo que se puede hacer directamente desdel navegador:
+ver_productos: Muestra en consola la lista de productos registrados en la tienda.
 
-![repo](./images/repo.png)
-Posteriormente, lo uniremos con el siguiente enlace en nuestro navegador de preferencia:
+alternar_disponibilidad: Cambia el estado de disponibilidad de un producto, permitiendo activarlo o desactivarlo.
 
-```url
-https://beta.solpg.io/
-```
+total_productos: Muestra la cantidad total de productos almacenados en la tienda.
 
-Lo que nos dará algo parecido a:
+Para garantizar la seguridad del sistema, se implementó una validación del propietario, de modo que solo el dueño de la tienda pueda modificar la información. En caso contrario, el programa devuelve un error definido en el enum Errores.
 
-![url](./images/url.png)
+Además, se definieron las cuentas necesarias mediante las estructuras NuevaTienda y NuevoProducto, las cuales especifican los permisos y requisitos que deben cumplir las cuentas que interactúan con el programa. También se utilizaron Program Derived Addresses (PDA) para crear de manera segura la cuenta de la tienda dentro de la blockchain.
 
-Al pulsar enter seremos enviados al `Solana Playground` con nuestro proyecto abierto:
+Finalmente, se realizó la interacción con el programa mediante JavaScript en Solana Playground, donde se ejecutaron diferentes instrucciones para mostrar la dirección de la billetera, consultar el balance en SOL, crear la tienda y agregar productos cosméticos.
 
-![pg](./images/pg.png)
-
-Para guardarlo solo damos clic en el boton `import` y asignamos un nombre:
-
-![import](./images/import.png)
-
-## Preparacion del entorno
-
-Primero conectaremos el entorno con la devnet, lo que tambien procederá a la creación de una wallet. Para eso daremos clic en donde dice **Not Conected**:
-
-![playground1](./images/playground1.png)
-
-Saldrá la siguiente ventana donde daremos en el botón **Continue**:
-
-![wallet](./images/wallet.png)
-
-Como resultado se mostrará la siguiente información:
-
-![status](./images/status.png)
-
-* En verde: el estado de la conexión y el entorno al que se encuentra conectado
-
-* En amarillo: la la dirección de la wallet conectada
-
-* En azul: la cantidad de tokens en la wallet
-
-> ℹ️ ¿Quieres ver el ejemplo de un "Hola Mundo" en Solana?. Da clic aquí: 👉 [Ver Ejemplo](https://github.com/WayLearnLatam/Solana-starter-kit/tree/1fc6349ba63375a3fe223d8d56911bc64765459b/build-deploy)
-
-> ℹ️ ¿Cuentas con una Wallet de [Phantom](https://phantom.com/) que deseas importar?, Da clic aquí para ver como hacerlo: 
-
-👉 [Como Importar una Wallet](https://github.com/WayLearnLatam/Solana-starter-kit/tree/1fc6349ba63375a3fe223d8d56911bc64765459b/import-key-a-playground)
+Gracias a este proceso se logró construir un sistema sencillo de gestión de productos dentro de la blockchain, aplicando conceptos importantes como cuentas en Solana, estructuras de datos, validación de usuarios, y manipulación de vectores en Rust.
